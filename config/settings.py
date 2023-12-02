@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'common',
     'drf_spectacular',
     'djoser',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'breaks',
 
 ]
 
