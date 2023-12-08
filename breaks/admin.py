@@ -1,5 +1,5 @@
 from django.contrib import admin
-from breaks.models import organizations, groups, replacements
+from breaks.models import organizations, groups, replacements, breaks
 
 
 #########################################
@@ -7,7 +7,7 @@ from breaks.models import organizations, groups, replacements
 #########################################
 class ReplacementEmployeeInline(admin.TabularInline):
     model = replacements.ReplacementEmployee
-    fields = ('employee','status')
+    fields = ('employee', 'status')
 
 
 #########################################
@@ -32,3 +32,13 @@ class ReplacementAdmin(admin.ModelAdmin):
 @admin.register(replacements.ReplacementStatus)
 class ReplacementStatusAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'sort', 'is_active')
+
+
+@admin.register(breaks.BreakStatus)
+class BreakStatusAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name', 'sort', 'is_active')
+
+
+@admin.register(breaks.Break)
+class BreakAdmin(admin.ModelAdmin):
+    list_display = ('id', 'replacement', 'break_start', 'break_end',)

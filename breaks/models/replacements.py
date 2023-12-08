@@ -1,22 +1,15 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from common.models.mixins import BaseDictModelMixin
 
 User = get_user_model()
 
 
-class ReplacementStatus(models.Model):
-    code = models.CharField('Код', max_length=16, primary_key=True)
-    name = models.CharField('Название', max_length=32)
-    sort = models.PositiveSmallIntegerField('Сортировка', null=True, blank=True)
-    is_active = models.BooleanField('Активность', default=True)
-
+class ReplacementStatus(BaseDictModelMixin):
     class Meta:
         verbose_name = 'Статус смены'
-        verbose_name_plural = 'Статус смены'
+        verbose_name_plural = 'Статусы смены'
         ordering = ('sort',)
-
-    def __str__(self):
-        return f'{self.code} для {self.name}'
 
 
 class Replacement(models.Model):
