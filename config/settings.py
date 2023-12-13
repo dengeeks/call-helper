@@ -13,15 +13,13 @@ from datetime import timedelta
 from pathlib import Path
 import os
 
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY').split(' ')
 
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,7 +37,8 @@ INSTALLED_APPS = [
     'common',
     'drf_spectacular',
     'djoser',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'breaks',
 
 ]
 
@@ -104,7 +103,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FileUploadParser',
     ],
 
-   'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -149,15 +148,13 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CSRF_COOKIE_SECURE = False
 
-
-
 ##############################
 # DRF SPECTACULAR
 ##############################
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Call Helper',
-        'DESCRIPTION': 'Call Helper',
+    'DESCRIPTION': 'Call Helper',
     'VERSION': '1.0.0',
 
     'SERVE_PERMISSIONS': [
@@ -187,7 +184,6 @@ SPECTACULAR_SETTINGS = {
     'ENABLE_DJANGO_DEPLOY_CHECK': False,
     'DISABLE_ERRORS_AND_WARNINGS': True,
 }
-
 
 ####################################
 # DJOSER
