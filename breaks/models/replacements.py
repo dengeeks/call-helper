@@ -1,25 +1,19 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from common.models.mixins import BaseDictModelMixin
+
 
 User = get_user_model()
 
 
-class ReplacementStatus(BaseDictModelMixin):
-    class Meta:
-        verbose_name = 'Статус смены'
-        verbose_name_plural = 'Статусы смены'
-        ordering = ('sort',)
-
-
 class Replacement(models.Model):
-    group = models.ForeignKey('breaks.Group', models.CASCADE, 'replacements',
-                              verbose_name='Группа'
-                              )
+    group = models.ForeignKey(
+        'breaks.Group', models.CASCADE, 'replacements',
+        verbose_name='Группа'
+    )
     date = models.DateField('Дата смены')
-    breaks_start = models.TimeField('Начало обеда')
-    breaks_end = models.TimeField('Конец обеда')
-    breaks_max_duration = models.IntegerField(
+    break_start = models.TimeField('Начало обеда')
+    break_end = models.TimeField('Конец обеда')
+    break_max_duration = models.PositiveSmallIntegerField(
         'Макс. продолжительность обеда'
     )
 
@@ -33,8 +27,10 @@ class Replacement(models.Model):
 
 
 class ReplacementEmployee(models.Model):
-    employee = models.ForeignKey(User, models.CASCADE, 'replacements',
-                                 verbose_name='Группа')
+    employee = models.ForeignKey(
+        User, models.CASCADE, 'replacements',
+        verbose_name='Сотрудник'
+    )
     replacement = models.ForeignKey(
         'breaks.Replacement', models.CASCADE, 'employees',
         verbose_name='Смена'
