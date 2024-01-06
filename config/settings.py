@@ -15,9 +15,9 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = '_*yo0vjh-4$e72u4x_sbvaz(pv9^1i_i!ae##wcxz1%rk%5k+s'
 
-DEBUG = os.environ.get('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = ['34.16.146.16']
 
@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': "django.db.backends.postgresql_psycopg2",
         'NAME': os.environ.get('PG_DATABASE'),
         'USER': os.environ.get('PG_USER'),
         'PASSWORD': os.environ.get('PG_PASSWORD'),
