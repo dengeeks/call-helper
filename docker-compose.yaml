@@ -14,7 +14,8 @@ services:
     restart: always
     depends_on:
       - postgres
-   
+
+
   postgres:
     image: postgres
     env_file:
@@ -29,16 +30,26 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
 
-
   nginx:
     image: nginx
     ports:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
       - static_volume:/usr/src/app/static
     depends_on:
       - django
+
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email denis.lukianov1801@gmail.com -d 34.16.146.16 --agree-tos
 
 volumes:
   static_volume:
